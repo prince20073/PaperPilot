@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Local-first AI workspace for freelancers: organize invoices, receipts, and client documents privately." />
+  <title>PaperPilot — Private Document Desk</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="app-shell">
+    <aside class="sidebar">
+      <a class="brand" href="#" aria-label="PaperPilot home">
+        <span class="brand-mark">P</span><span>paperpilot<span class="brand-dot">.</span></span>
+      </a>
+      <div class="workspace-label">WORKSPACE</div>
+      <button class="nav-item active" data-view="dashboard"><span>▦</span> Overview</button>
+      <button class="nav-item" data-view="documents"><span>▤</span> Documents <span class="nav-count" id="docCount">0</span></button>
+      <button class="nav-item" data-view="privacy"><span>♧</span> Privacy center</button>
+      <div class="sidebar-bottom">
+        <div class="local-status"><span class="status-dot"></span><div><b>Local-first mode</b><small>Your files stay in this browser</small></div></div>
+        <div class="user-mini"><div class="avatar">Y</div><div><b>Your workspace</b><small>Free plan · No account</small></div></div>
+      </div>
+    </aside>
+
+    <main class="main">
+      <header class="topbar">
+        <div class="breadcrumb">Workspace <span>/</span> <b id="breadcrumbTitle">Overview</b></div>
+        <div class="top-actions"><span class="privacy-pill"><span>●</span> Private by design</span><button class="icon-button" id="helpBtn" aria-label="Help">?</button></div>
+      </header>
+
+      <section class="view active" id="dashboardView">
+        <div class="welcome-row">
+          <div><p class="eyebrow">YOUR PRIVATE DOCUMENT DESK</p><h1>Less paperwork.<br /><span>More getting-things-done.</span></h1><p class="subhead">Organize invoices and receipts without sending sensitive client data to a cloud AI service.</p></div>
+          <div class="hero-art" aria-hidden="true"><div class="art-circle"></div><div class="paper paper-one">INVOICE <b>₹ 8,400</b><i></i><i></i></div><div class="paper paper-two">RECEIPT <b>PAID ✓</b><i></i><i></i></div><div class="spark">✦</div></div>
+        </div>
+
+        <div class="stats-grid">
+          <article class="stat-card"><div class="stat-top"><span>Total documents</span><span class="stat-icon purple">▤</span></div><strong id="totalStat">0</strong><small>Saved in this browser</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Invoices</span><span class="stat-icon orange">₹</span></div><strong id="invoiceStat">0</strong><small>Ready to review</small></article>
+          <article class="stat-card"><div class="stat-top"><span>Receipts</span><span class="stat-icon green">✓</span></div><strong id="receiptStat">0</strong><small>Expense records</small></article>
+        </div>
+
+        <div class="content-grid">
+          <section class="panel upload-panel">
+            <div class="panel-heading"><div><p class="eyebrow">QUICK ACTION</p><h2>Add documents</h2></div><span class="panel-icon">↥</span></div>
+            <p class="muted">Choose files to create a private document record. Files are not uploaded to a server.</p>
+            <label class="dropzone" id="dropzone" for="fileInput"><span class="upload-symbol">↥</span><b>Drop files here or <em>browse</em></b><small>PDF, PNG, JPG, TXT · up to 10 MB each</small></label>
+            <input id="fileInput" type="file" accept=".pdf,.png,.jpg,.jpeg,.txt" multiple hidden />
+            <div class="upload-note"><span>🔒</span> Processing happens locally. No external AI API is used.</div>
+          </section>
+          <section class="panel recent-panel">
+            <div class="panel-heading"><div><p class="eyebrow">YOUR WORKSPACE</p><h2>Recent documents</h2></div><button class="text-button" id="viewAllBtn">View all →</button></div>
+            <div id="recentList" class="document-list"><div class="empty-state"><span>▤</span><b>Your desk is clear</b><p>Add an invoice or receipt to get started.</p></div></div>
+          </section>
+        </div>
+        <section class="bottom-banner"><div class="banner-icon">✦</div><div><b>Built for independent work</b><p>Keep client documents organized, reduce repetitive admin, and stay in control of your data.</p></div><button id="privacyLearnBtn">Explore privacy →</button></section>
+      </section>
+
+      <section class="view" id="documentsView">
+        <div class="page-heading"><div><p class="eyebrow">YOUR FILE LIBRARY</p><h1>Documents</h1><p class="subhead">Search, categorize, and manage your local records.</p></div><label class="primary-button" for="fileInput">＋ Add files</label></div>
+        <div class="toolbar"><label class="searchbox"><span>⌕</span><input id="searchInput" type="search" placeholder="Search documents..." /></label><select id="filterSelect" aria-label="Filter documents"><option value="all">All types</option><option value="Invoice">Invoices</option><option value="Receipt">Receipts</option><option value="Other">Other</option></select></div>
+        <div id="allDocuments" class="all-documents"></div>
+      </section>
+
+      <section class="view" id="privacyView">
+        <div class="page-heading"><div><p class="eyebrow">YOUR DATA, YOUR RULES</p><h1>Privacy center</h1><p class="subhead">A simple, transparent approach to handling sensitive documents.</p></div></div>
+        <div class="privacy-grid">
+          <article class="privacy-card"><div class="privacy-icon green">⌂</div><h3>Local-first storage</h3><p>Document names and categories are saved in this browser's local storage. Files are not transmitted to a server by this demo.</p><span class="feature-status">● Active</span></article>
+          <article class="privacy-card"><div class="privacy-icon purple">✧</div><h3>No paid AI dependency</h3><p>This prototype uses lightweight browser-side logic and does not require an API key, subscription, or external model.</p><span class="feature-status">● No API key needed</span></article>
+          <article class="privacy-card"><div class="privacy-icon orange">⌫</div><h3>You control deletion</h3><p>Remove any record from your workspace. Clear all records when you want to reset the demo.</p><button class="danger-button" id="clearAllBtn">Clear all records</button></article>
+        </div>
+        <div class="notice"><b>Prototype transparency</b><p>PaperPilot currently creates a local index of your files. It does not read PDF/image contents, extract invoice totals, or run a language model. Those features could be added with an open-weight model running locally, such as a model served through Ollama, without sending documents to a third party.</p></div>
+      </section>
+      <footer>PaperPilot © 2026 <span>Made for people who do real work.</span></footer>
+    </main>
+  </div>
+
+  <div class="toast" id="toast" role="status" aria-live="polite"></div>
+  <dialog id="detailDialog" class="detail-dialog"><button class="dialog-close" id="closeDialog" aria-label="Close">×</button><div id="detailContent"></div></dialog>
+  <script src="script.js"></script>
+</body>
+</html>
